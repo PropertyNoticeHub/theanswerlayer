@@ -153,6 +153,7 @@
       padding: 1.5rem;
       background-color: #0f1323;
       border-radius: 8px;
+      text-align: center;
     }
     .signup h2 {
       margin-top: 0;
@@ -160,10 +161,77 @@
     }
     .signup p {
       color: #b3bff7;
+      margin-bottom: 1.5rem;
     }
-    .signup iframe {
-      max-width: 100%;
-      border-radius: 4px;
+    .signup-button {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: linear-gradient(135deg, #9dd6ff 0%, #6ba3d6 100%);
+      color: #0a0d18;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .signup-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(157, 214, 255, 0.3);
+    }
+    .signup-button:active {
+      transform: translateY(0);
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 13, 24, 0.95);
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      position: relative;
+      margin: 2% auto;
+      width: 90%;
+      max-width: 600px;
+      height: 90%;
+      background-color: #0f1323;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #9dd6ff;
+      font-size: 2rem;
+      font-weight: bold;
+      background: rgba(15, 19, 35, 0.8);
+      border: 2px solid #9dd6ff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      transition: background 0.2s;
+    }
+    .modal-close:hover {
+      background: rgba(157, 214, 255, 0.2);
+    }
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
     /* Responsive adjustments */
     @media (max-width: 480px) {
@@ -243,8 +311,40 @@
     <div class="signup">
       <h2>Want updates as this evolves?</h2>
       <p>If you're researching AI ranking strategies, you're exactly who should be on this list.</p>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfHOACs-7XTOqWCD6l16J9CmYRT3dU8ifcNszen2s-E9pQmEQ/viewform?embedded=true" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      <button class="signup-button" onclick="openModal()">Join the List</button>
     </div>
+
+    <!-- Modal for Google Form -->
+    <div id="formModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfHOACs-7XTOqWCD6l16J9CmYRT3dU8ifcNszen2s-E9pQmEQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
+    </div>
+
+    <script>
+      function openModal() {
+        document.getElementById('formModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        document.getElementById('formModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+      // Close modal when clicking outside of it
+      window.onclick = function(event) {
+        const modal = document.getElementById('formModal');
+        if (event.target == modal) {
+          closeModal();
+        }
+      }
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      });
+    </script>
   </main>
 
   <footer>
