@@ -1,0 +1,20 @@
+{
+  "name": "the-answer-layer",
+  "version": "1.0.0",
+  "description": "A live demonstration of how to rank in AI search",
+  "scripts": {
+    "update": "python3 update_hash.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/theanswerlayer.git"
+  },
+  "keywords": [
+    "ai-search",
+    "seo",
+    "semantic-seo"
+  ],
+  "author": "The Answer Layer",
+  "license": "MIT"
+}
+

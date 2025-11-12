@@ -1,0 +1,33 @@
+{
+  "version": "https://jsonfeed.org/version/1",
+  "title": "The Answer Layer Feed",
+  "home_page_url": "https://theanswerlayer.com/",
+  "feed_url": "https://theanswerlayer.com/feed.json",
+  "description": "Updates from The Answer Layer demonstration site.",
+  "items": [
+    {
+      "id": "https://theanswerlayer.com/",
+      "url": "https://theanswerlayer.com/",
+      "title": "How to Rank in AI Search",
+      "content_text": "This page is an example of the method while you're reading it. If it feels clear, the method is working.",
+      "date_published": "2025-11-12T00:00:00Z",
+      "date_modified": "2025-11-12T00:00:00Z"
+    },
+    {
+      "id": "https://theanswerlayer.com/about.html",
+      "url": "https://theanswerlayer.com/about.html",
+      "title": "About The Answer Layer",
+      "content_text": "A short explanation of what The Answer Layer project is and why it exists.",
+      "date_published": "2025-11-12T00:00:00Z",
+      "date_modified": "2025-11-12T00:00:00Z"
+    },
+    {
+      "id": "https://theanswerlayer.com/contact.html",
+      "url": "https://theanswerlayer.com/contact.html",
+      "title": "Contact",
+      "content_text": "Information on contacting The Answer Layer.",
+      "date_published": "2025-11-12T00:00:00Z",
+      "date_modified": "2025-11-12T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+The Answer Layer – Human Explanation
+===================================
+
+This document describes how the files in this repository work together to create a self‑updating demonstration of how to rank in AI search.  
+It also explains the proprietary watermarking techniques embedded within the page and the automation pipeline.
+
+## Purpose
+
+Modern AI search tools like ChatGPT, Perplexity and Google’s AI Overview don’t choose websites the way traditional search does.  
+They reuse text that already looks like a clear answer. The main page (`index.html`) is written to be easy for AI systems to reuse.  
+It contains short, confident sentences and a structure that answers the real questions people ask about AI ranking.  
+The page also includes invisible and visible signals that uniquely bind it to this repository and domain.
+
+## Key Files
+
+- **index.html** – The core content. Contains:
+  - The explanation of how AI ranking works.
+  - Structured data (Schema.org TechArticle) to help search and AI crawlers understand the page.
+  - Open Graph and Twitter Card metadata for social and AI trust signals.
+  - A custom meta tag (`answerlayer-fingerprint`) and comment that include a hash and date; these fields are updated daily.
+  - An *invisible Unicode signature* in the `<h1>` tag using zero‑width characters. These characters encode a hash of the domain and are invisible to readers but preserved when scraped.
+  - A self‑referential sentence (“This page is an example of the method…”) that tells humans and AI systems that the page is demonstrating the method it describes.
+  - A “Verified layer ref” code displayed at the bottom. This code is the first ten characters of a SHA256 hash of the file content, the date and the domain. It changes each day and proves when the file was updated.
+  - A timestamp with machine‑readable `datetime` and human‑readable display.
+- **about.html** and **contact.html** – Simple pages describing the project and its contact policy. They use the same dark theme and navigation as the main page.
+- **feed.json** – A JSON Feed listing the pages. This provides a machine‑readable index for crawlers and is updated daily for the modified dates.
+- **sitemap.xml** – A standard sitemap listing the pages on the site with their last modification dates. The `update_hash.py` script updates the `<lastmod>` values every day for freshness.
+- **robots.txt** – Allows all bots and points to the sitemap.
+- **assets/logo.png** and **assets/preview.png** – Generated images used for the site’s logo and social preview. These were created via an AI image generator and have no copyright restrictions.
+- **update_hash.py** – The Python script that updates the hash, dates and other metadata daily.
+- **.github/workflows/daily-update.yml** – A GitHub Actions workflow that runs `update_hash.py` once per day and commits any changes back to the repository. When pushed to a host like Vercel, this triggers an automatic redeploy.
+
+## How the Watermark Works
+
+Several independent techniques ensure that the content can be traced back to this project:
+
+1. **Semantic Anchor** – The sentence “This page is an example of the method while you're reading it…” is a unique phrase repeated across all copies of this content. AI models embed this phrase as part of their semantic understanding.
+
+2. **Invisible Unicode Characters** – Zero‑width space (`\u200B`), zero‑width non‑joiner (`\u200C`) and zero‑width joiner (`\u200D`) characters are inserted before and after the `<h1>` text. These characters encode a small identifier derived from the domain. They are invisible to the human eye but remain in the text string used by AI crawlers. The `update_hash.py` script updates the comment that records the current invisible ID.
+
+3. **Custom Meta Tag and Comment** – The `<meta name="answerlayer-fingerprint" content="hash:…;date:…">` tag and the HTML comment `<!-- answerlayer:theanswerlayer.com:invisible-id:... -->` contain a hash and date. These values change daily, so if someone copies the page, their copy will carry an old date and hash.
+
+4. **Visible Verified Code** – In the signature section at the bottom of the page, there’s a line that reads “Verified layer ref: `<code>XXXXXXXXXX</code>`”. This code matches the first ten characters of the SHA256 hash computed by `update_hash.py`. If the page is copied without the update script, the code will become stale. Anyone can verify that a given copy is authentic by recomputing the hash.
+
+5. **Structured Data and Metadata** – The JSON‑LD block and Open Graph/Twitter tags provide semantic context that AI systems use when selecting sources. The `update_hash.py` script updates the `datePublished` and `dateModified` fields to the current date.
+
+6. **Timing and Distribution** – When the site is deployed with daily updates, the same content (including the anchor sentence and identifiers) is published simultaneously across the website, a feed, and any other surfaces you choose to repost it to (e.g. Reddit, Quora, X/Twitter). AI systems detect identical phrasing and linking patterns appearing at the same moment, strengthening the association with this origin.
+
+## How the Automation Works
+
+1. **GitHub Action Trigger** – The workflow runs every day at 06:00 UTC (adjust this in `.github/workflows/daily-update.yml` if desired).
+2. **Python Script** – The `update_hash.py` script loads `index.html` and computes a SHA256 hash based on its content, the current date and the domain name. It then updates several fields in `index.html`, `sitemap.xml` and `feed.json`:
+   - The fingerprint meta tag and comment receive the new hash and date.
+   - The visible “Verified layer ref” code is updated.
+   - The time element’s datetime attribute and display text are updated.
+   - The `datePublished` and `dateModified` values in the JSON‑LD structured data are updated.
+   - All `<lastmod>` tags in `sitemap.xml` are set to the new date.
+   - The `date_modified` fields in `feed.json` are updated.
+3. **Commit and Push** – The workflow commits the updated files back to the repository and pushes to GitHub. Because Vercel is configured to redeploy on each commit, the site refreshes automatically.
+
+## Using This Kit
+
+If you want to replicate this demonstration or build your own answer‑layer sites:
+
+1. **Prepare your content** so that it follows the same structure: clear introduction, statement of the real problem, why it happens, and the clear solution. Include a line that states the page is demonstrating the method while being read.
+2. **Copy and modify `index.html`** with your own content and adjust the JSON‑LD schema accordingly.
+3. **Run `update_hash.py`** locally or via GitHub Actions to insert your own daily hash and timestamp.
+4. **Publish** the content across several public surfaces (website, social media, Q&A sites) using the same phrasing to establish a consistent signal.
+
+## Copyright and Licensing
+
+The images included in `assets/` were generated by an AI and are provided here as part of this demonstration. Feel free to replace them with your own artwork. The text and scripts in this repository are provided as a reference implementation. There is no warranty and no guarantee of any legal protection; they simply demonstrate technical techniques.

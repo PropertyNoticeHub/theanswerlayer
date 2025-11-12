@@ -1,0 +1,52 @@
+WHAT TO DO WITH THESE FILES
+===========================
+
+I updated 3 files for you:
+1. index.html
+2. about.html  
+3. contact.html
+
+WHAT CHANGED:
+-------------
+✓ Added your Google Form email signup to index.html (styled to match the dark theme)
+✓ Fixed contact.html - now has actual contact email instead of "fuck off" message
+✓ NO ANALYTICS - keeping it simple
+
+WHAT YOU NEED TO DO:
+--------------------
+
+STEP 1: Replace the old files
+-------------------------------
+In your project folder (the one ChatGPT gave you), replace these 3 files with the new versions I gave you.
+
+STEP 2: Set up email forwarding
+--------------------------------
+You need to create: contact@theanswerlayer.com
+Do this in GoDaddy (or wherever your domain is)
+Forward it to your actual email
+
+STEP 3: Push to GitHub
+-----------------------
+Once you replace those 3 files in your project folder:
+- Commit the changes
+- Push to GitHub
+- Vercel will auto-deploy
+
+WHERE YOUR EMAIL SIGNUPS GO:
+----------------------------
+Go to: https://docs.google.com/forms
+Find your "TheAnswerLayer" form
+Click "Responses" tab
+See everyone who signed up
+Export to CSV anytime you want
+
+ABOUT THE "BROKEN" FORM IN PREVIEW:
+------------------------------------
+The Google Form will look broken if you open index.html locally in your browser.
+THIS IS NORMAL. Google blocks local file embeds.
+It WILL work perfectly fine once it's on the actual live site (theanswerlayer.com).
+
+Don't worry about it.
+
+THAT'S IT.
+
