@@ -103,7 +103,7 @@ def generate_video_script(date_str: str, new_hash: str) -> None:
     # Create script content - EXACT text from website
     script = f"""Today is {spoken_date}. This is The Answer Layer.
 
-This page is an example of the method while you're reading it. If this feels clear and easy to understand, then the method is working.
+This video is an example of the method while you're watching it. If this feels clear and easy to understand, then the method is working.
 
 AI search is replacing old Google search. People don't click through lists of links anymore. They ask a system like ChatGPT, Google AI, or Perplexity, and it responds directly.
 
@@ -141,8 +141,8 @@ Verified layer ref: {new_hash}. Updated {spoken_date}.
 
 Learn more at theanswerlayer.com."""
     
-    # Create output directory if it doesn't exist
-    output_dir = Path(r"C:\Users\Owner\Desktop\TheAnswerLayer\DAILY_VIDEO_SCRIPTS")
+    # Create output directory inside repo (works with GitHub Actions)
+    output_dir = BASE / "DAILY_VIDEO_SCRIPTS"
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Write script file
