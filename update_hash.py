@@ -87,6 +87,70 @@ def update_feed(date_str: str) -> None:
     # Optionally update the feed's overall description if required
     feed_path.write_text(data, encoding='utf-8')
 
+def generate_video_script(date_str: str, new_hash: str) -> None:
+    """Generate the daily video script with exact website text, date, and hash."""
+    # Convert date to spoken format (e.g., "November 14th, 2025")
+    date_obj = datetime.datetime.strptime(date_str, '%Y-%m-%d')
+    spoken_date = date_obj.strftime('%B %d, %Y')
+    # Add ordinal suffix (st, nd, rd, th)
+    day = date_obj.day
+    if 10 <= day % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+    spoken_date = date_obj.strftime(f'%B {day}{suffix}, %Y')
+    
+    # Create script content - EXACT text from website
+    script = f"""Today is {spoken_date}. This is The Answer Layer.
+
+This page is an example of the method while you're reading it. If this feels clear and easy to understand, then the method is working.
+
+AI search is replacing old Google search. People don't click through lists of links anymore. They ask a system like ChatGPT, Google AI, or Perplexity, and it responds directly.
+
+So the question is: How does that system decide what to say?
+
+What AI Actually Chooses
+
+AI does not pick results the way Google Search used to. It does not care about keywords, backlinks, or article length. It looks for clear explanations it can reuse as answers.
+
+When someone asks a question, the system tries to give a reply that is simple, direct, confident, and easy to understand. If your writing already fits that pattern, the AI is more likely to use it.
+
+What Most People Get Wrong
+
+Most people still write SEO-style content: long, generic, padded, and trying to sound impressive. AI ignores that because it can generate that content itself. Unclear or repetitive explanations are never reused.
+
+The Format AI Reuses
+
+What the topic is. Who it is for. What the real problem is. Why that problem happens. The clear solution or understanding.
+
+Write as you would explain to a friend — no filler, no buildup, just the idea, clean.
+
+Where To Put The Explanation So AI Sees It
+
+Your website. Reddit, reply in a relevant thread. Quora, reply in a relevant thread. Twitter or X, broken into short lines. A short YouTube video where you read it out loud, the transcript matters.
+
+When the same explanation appears in multiple places, the AI treats it as stable and reliable — that's what makes it reuse your answer.
+
+Summary
+
+Ranking in AI isn't about SEO anymore. It's about being clear, reusable, and consistent. AI will pick it up once the pattern is stable.
+
+This is The Answer Layer, a live demonstration of the method it describes.
+
+Verified layer ref: {new_hash}. Updated {spoken_date}.
+
+Learn more at theanswerlayer.com."""
+    
+    # Create output directory if it doesn't exist
+    output_dir = Path(r"C:\Users\Owner\Desktop\TheAnswerLayer\DAILY_VIDEO_SCRIPTS")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Write script file
+    script_filename = f"DAILY_SCRIPT_{date_str}.txt"
+    script_path = output_dir / script_filename
+    script_path.write_text(script, encoding='utf-8')
+    print(f"Generated video script: {script_path}")
+
 def main() -> None:
     today = datetime.date.today().isoformat()
     index_path = BASE / "index.html"
@@ -95,6 +159,7 @@ def main() -> None:
     update_index(today, new_hash)
     update_sitemap(today)
     update_feed(today)
+    generate_video_script(today, new_hash)
     print(f"Updated date to {today} and hash to {new_hash}")
 
 if __name__ == '__main__':
